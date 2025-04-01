@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    /*    * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }*/
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color:blueviolet;
+        }
+
+        .main {
+            width: 70%;
+            height: 90%;
+            border: 3px solid green;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: aliceblue;
+        }
+
+        .heading {
+            margin: 8px;
+             font-family: Tahoma, sans-serif;
+             font-size: 30px;
+             padding: 10px;
+
+        }
+
+        .task {
+            margin: 8px;
+        }
+
+        #task-input {
+            padding: 4px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        #add {
+            height: 30px;
+            width: 100px;
+            background-color: crimson;
+            border-radius: 5px;
+            font-family:Georgia;            
+        }
+
+        .taskcontainer {
+            /* border: 2px solid red; */
+            width: 50%;
+        }
+        #items{
+            width: 500px;
+         border: 3px solid purple; 
+         margin: 5px;
+         display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+        .delete{
+            height: 30px;
+            width: 150px;
+            background-color:indigo;
+            border-radius: 5px;
+            margin: 5px;
+            color: white;
+            font-family: serif;
+            font-weight: bolder;
+        }
+        .edit{
+            height: 30px;
+            width: 150px;
+            background-color:indigo;
+            border-radius: 5px;
+            margin: 5px;
+            color: white;
+            font-family: serif;
+            font-weight: bolder;
+        }
+        .head1{
+            border: 3px solid navy;
+            margin: 5px;
+            width: 200px;
+            height: 30px;
+            border-radius: 5px;
+             text-align: center;
+        }
+        .save{
+            height: 30px;
+            width: 150px;
+            background-color:indigo;
+            border-radius: 5px;
+            margin: 5px;
+            color: white;
+            font-family: 'Trebuchet MS', sans-serif;
+            font-weight: bolder;  
+        }
+        .input1{
+            height: 25px;
+            margin-top: 8px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h1 class="heading">AddEditDeleteOperation</h1>
+        <div class="task">
+            <input type="text" id="task-input" placeholder="Enter your task">
+            <button id="add">ADD</button>
+        </div>
+        <div class="taskcontainer" id="task-container">
+            <!-- <div id="items">
+<h2>Buy Books</h2>
+<button>DELETE</button>
+<button>EDIT</button>
+      </div> -->
+        </div>
+    </div>
+    <script>
+        var flag = true;
+        console.log(typeof(flag));
+        var add = document.getElementById('add');
+        function deletetask(event){
+            console.log(event.target.parentElement);
+            event.target.parentElement.remove();
+            console.log(event)
+        }
+        function save(event){
+      //  console.log(event);
+   var child3 =    event.target.parentElement.children[3].value;
+ // console.log( event.target.parentElement.children[3].value);
+       var savetask = event.target.parentElement.children[0];
+      // console.log( event.target.parentElement.children[0]);
+               savetask.innerHTML   =child3;
+      // console.log(savetask);
+var a=event.target.parentElement.children[3].remove();
+console.log(event.target);
+event.target.remove();
+flag=true;
+        }
+
+        function edit(event){
+            if(flag==true){
+            console.log("i am clicked");
+      var input = document.createElement('input');
+      input.type="text";
+      input.className="input1";
+      var parent = event.target.parentElement;
+      console.log(parent);
+  var text = event.target.parentElement.children[0].innerHTML;
+  console.log(event.target.parentElement.children[0].innerHTML);
+           input.value=text;
+           var savebtn = document.createElement('button');
+           savebtn.innerHTML="Save";
+           savebtn.className="save";
+
+        savebtn.addEventListener('click',save);
+
+           parent.append(input);
+           parent.append(savebtn);
+
+           flag=false;
+        }
+    }
+        function addtask() {
+            var task1 = document.getElementById('task-input');
+            console.log(task1);
+            var task2 = task1.value;
+            console.log(task2.length)
+            if (task2.length > 0) {
+                var head = document.createElement('h2');
+                var deletebutton = document.createElement('button');
+                var editbutton = document.createElement('button');
+                head.className="head1";
+
+                head.innerHTML = task2;
+               deletebutton.innerHTML = "Delete";
+                editbutton.innerHTML = "Edit";
+                deletebutton.className="delete";
+                editbutton.className="edit";
+                console.log(deletebutton);
+                var itemscon = document.createElement('div');
+                itemscon.id = "items";
+                itemscon.append(head);
+                itemscon.append(deletebutton);
+                itemscon.append(editbutton);
+
+                deletebutton.addEventListener('click',deletetask);
+                editbutton.addEventListener('click',edit);
+
+
+                var taskcontainer = document.getElementById('task-container');
+                taskcontainer.append(itemscon);
+                console.log(taskcontainer)
+            }
+
+        }
+        add.addEventListener('click', addtask);
+    </script>
+</body>
+
+</html>

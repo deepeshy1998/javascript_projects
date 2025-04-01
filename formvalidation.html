@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  *{
+    padding: 0px;
+    margin: 0px;
+  }
+.form{
+  width: 100vw;
+  background-color:#98FB98;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.formpart{
+  width: 600px;
+  background-color:#FFE4C4;
+  height: 500px;
+  margin-top: 70px;
+}
+.formpart label{
+  display: flex;
+  justify-content:left;
+  margin-left: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.formpart input{
+    margin-left: 30px;
+    width: 520px;
+    height:30px;
+    border-radius: 5px;
+    padding-left: 8px;
+}
+.savebtn{
+  display: flex;
+  margin-top: 10px;
+  margin-left: 30px;
+  height: 40px;
+  width: 520px;
+  background-color: crimson;
+  border-radius: 8px;
+  text-align: center;
+   
+}
+.heading h2{
+  text-align: center;
+  padding-top: 20px;
+  font-family: serif;
+  font-size: 30px;
+}
+.s1{
+  
+  padding-left: 250px;
+  padding-top: 10px;
+  font-size: 18px;
+  font-family: serif;
+  font-weight: bolder;   
+  color: white;       
+
+}
+#name-error{
+  color: red;
+  padding-left: 30px;
+}
+#email-error{
+  color: red;
+  padding-left: 30px; 
+}
+#password-error{
+  color: red;
+ display: flex;
+ padding-left: 30px;
+}
+</style>
+<body>
+    <div class="form">
+     
+        <div class="formpart">
+          <div class="heading">
+            <h2>Sign Up</h2>
+            </div>
+   <form action="addeditdelete.html" id="signupform" onsubmit="handlesubmit(event)" >
+<label for="fullname"> Full Name</label>
+<input type="text" placeholder="Enter your Full Name" id="fullname" required>
+<span id="name-error"></span>
+  <label for="email">Email</label>
+<input type="text" placeholder="Enter Email" id="email" required>
+<span id="email-error"></span>
+  <label for="password"> Password</label>
+<input type="password" placeholder="Enter Password" id="password" required>
+<span id="password-error"></span>
+<button type="submit" class="savebtn"><span class="s1">Save</span></button>
+   </form> 
+   </div>
+   <script>
+     var fullname = document.getElementById('fullname');
+     console.log(fullname);
+     var userflag =false;
+     var  emailflag =false;
+     var passwordflag = false;
+     function fullnameError(event){
+        console.log("ooook");
+       var nameregex = /^[A-Za-z]+([ ]?[A-Za-z]+)*$/;
+       console.log(nameregex);
+       var errorname =document.getElementById('name-error');
+       console.log(errorname);
+       console.log(event.target.value);
+       //event object that is send by the browser.
+       if(nameregex.test(event.target.value))
+       {
+         console.log("ok");
+         errorname.innerHTML=" ";
+         userflag=true;
+       }
+       else{
+         errorname.innerHTML="Please write correct name...";
+         userflag=false;
+       }
+     }
+     fullname.addEventListener('change',fullnameError);
+
+       var email = document.getElementById('email');
+       function emailError(event){
+      console.log("this is email");
+      var emailerror = document.getElementById('email-error');
+      var emailvalue = event.target.value
+      var emailregex= /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    console.log(emailregex);
+     console.log(event.target.value);
+         if(emailregex.test(emailvalue)){
+             emailerror.innerHTML=" ";
+             console.log('hello');
+             emailflag=true;
+       }
+       else{
+        emailerror.innerHTML="Please write correct email..."
+        emailflag=false;
+       }
+      }
+      email.addEventListener('change',emailError);
+
+     var password= document.getElementById('password');
+     function handlepassword(event){
+    var passworderror = document.getElementById('password-error');
+        var passwordvalue = event.target.value;
+   console.log(passwordvalue);
+    var passwordregex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+ //   console.log(passwordregex);
+ if(passwordregex.test(passwordvalue)){
+  passworderror.innerHTML="";
+  passwordflag=true;
+ }
+ else{
+  passworderror.innerHTML="weak password";
+  passwordflag=false;
+
+ }
+     }
+     password.addEventListener('change',handlepassword);
+
+     var signupform=document.getElementById('signupform');
+     console.log(signupform);
+    
+     function handlesubmit(event) {
+      event.preventDefault();
+      console.log("hello");
+      if(userflag && emailflag && passwordflag){
+       
+        signupform.submit();
+     }
+    }
+   </script>
+</body>
+</html>
